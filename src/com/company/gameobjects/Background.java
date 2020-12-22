@@ -12,22 +12,24 @@ public class Background extends GameObject {
 
     public Background(Vector2 position, GameObjectType type) {
         super(position, type);
-        try {
-            sprite = new Sprite("./resources/background.png");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        loadSprite();
     }
-
 
     @Override
     public void render(Graphics g) {
         g.drawImage(sprite.getImage(), gameObjectPosition.getX(), gameObjectPosition.getY(), null);
     }
 
-
     @Override
     public void update() {
 
+    }
+
+    private void loadSprite() {
+        try {
+            sprite = new Sprite("./resources/background.png");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

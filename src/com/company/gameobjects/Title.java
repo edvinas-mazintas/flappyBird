@@ -12,6 +12,10 @@ public class Title extends GameObject {
 
     public Title(Vector2 position, GameObjectType type) {
         super(position, type);
+        loadSprite();
+    }
+
+    private void loadSprite() {
         try {
             sprite = new Sprite("./resources/message.png");
         } catch (IOException e) {

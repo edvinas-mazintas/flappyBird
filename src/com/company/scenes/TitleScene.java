@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class TitleScene extends Scene {
 
     private final ArrayList<GameObject> gameObjects = new ArrayList<>();
-    private boolean isStarting = false;
+    private boolean isActive = false;
 
     @Override
     public void update() {
@@ -31,11 +31,12 @@ public class TitleScene extends Scene {
     }
 
     @Override
-    public boolean isStarting() {
-        return isStarting;
+    public boolean isActive() {
+        return isActive;
     }
 
-    public void setStarting(boolean starting) {
-        isStarting = starting;
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 }

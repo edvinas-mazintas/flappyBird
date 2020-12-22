@@ -8,10 +8,8 @@ import java.io.IOException;
 public class Sprite {
     private BufferedImage image;
     private final Vector2 spriteSize = new Vector2(0, 0);
-    private final String pathName;
 
     public Sprite(String pathName) throws IOException {
-        this.pathName = pathName;
         image = ImageIO.read(new File(pathName));
         assignSpriteSize();
     }

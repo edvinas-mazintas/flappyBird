@@ -12,6 +12,10 @@ public class GameOver extends GameObject {
 
     public GameOver(Vector2 position, GameObjectType type) {
         super(position, type);
+        loadSprite();
+    }
+
+    private void loadSprite() {
         try {
             sprite = new Sprite("./resources/gameover.png");
         } catch (IOException e) {
@@ -26,6 +30,6 @@ public class GameOver extends GameObject {
 
     @Override
     public void update() {
-
+        
     }
 }

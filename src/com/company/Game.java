@@ -10,14 +10,13 @@ import java.awt.*;
 import java.awt.image.BufferStrategy;
 
 public class Game extends Canvas implements Runnable {
-
     private Thread thread;
     private State currentState = State.STATE_TITLE;
-    private boolean running = true;
-
+    private boolean running = false;
     private GameScene gameScene;
     private TitleScene titleScene;
     private GameOverScene gameOverScene;
+
 
     public Game(int width, int height) {
         new Window(width, height, this);
@@ -54,8 +53,8 @@ public class Game extends Canvas implements Runnable {
         stop();
     }
 
-
-    public void start() {
+    public void start(){
+        running = true;
         thread = new Thread(this);
         thread.run();
     }
@@ -71,19 +70,20 @@ public class Game extends Canvas implements Runnable {
     }
 
     public void stop() {
-        running = false;
+
         try {
             thread.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        running = false;
     }
 
 
     private void render() {
         BufferStrategy bs = this.getBufferStrategy();
         if (bs == null) {
-            this.createBufferStrategy(2);
+            this.createBufferStrategy(3);
             return;
         }
 
@@ -96,7 +96,6 @@ public class Game extends Canvas implements Runnable {
             case STATE_GAME:
                 gameScene.render(g);
                 break;
-
             case STATE_GAME_OVER:
                 gameOverScene.render(g);
                 break;
@@ -111,26 +110,26 @@ public class Game extends Canvas implements Runnable {
             case STATE_TITLE:
                 titleScene.update();
 
-                if (titleScene.isStarting()) {
+                if (titleScene.isActive()) {
                     currentState = State.STATE_GAME;
                 }
                 break;
             case STATE_GAME:
                 gameScene.update();
 
-                if (gameScene.isGameOver()) {
+                if (gameScene.isActive()) {
                     currentState = State.STATE_GAME_OVER;
                 }
 
                 break;
             case STATE_GAME_OVER:
-                gameScene.setGameOver(false);
+                gameScene.setActive(false);
                 gameScene.reset();
                 gameOverScene.update();
 
-                if (gameOverScene.isStarting()) {
-                    gameOverScene.setStarting(false);
-                    titleScene.setStarting(false);
+                if (gameOverScene.isActive()) {
+                    gameOverScene.setActive(false);
+                    titleScene.setActive(false);
                     currentState = State.STATE_TITLE;
                 }
                 break;

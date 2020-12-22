@@ -11,23 +11,23 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class GameScene extends Scene {
-    Bird player;
+    private Player player;
     private final ArrayList<GameObject> gameObjects = new ArrayList<>();
-    private final GroundSpawner gs = new GroundSpawner(gameObjects);
-    private final PipeSpawner ps = new PipeSpawner(gameObjects);
+    private final GroundSpawner groundSpawner = new GroundSpawner(gameObjects);
+    private final PipeSpawner pipeSpawner = new PipeSpawner(gameObjects);
     private int delay;
-    private boolean gameOver = false;
+    private boolean isActive = false;
 
     public GameScene() {
 
     }
 
-    public boolean isGameOver() {
-        return gameOver;
+    public boolean isActive() {
+        return isActive;
     }
 
-    public void setGameOver(boolean gameOver) {
-        this.gameOver = gameOver;
+    public void setActive(boolean active) {
+        this.isActive = active;
     }
 
     @Override
@@ -39,22 +39,21 @@ public class GameScene extends Scene {
             if (go.type == GameObjectType.PIPE) {
                 Pipe pipe = (Pipe) go;
 
-                if (PlayerManager.getInstance().getPlayer().getBoundingBox().intersects(pipe.getBoundingBox())) {
-                    gameOver = true;
+                if(PlayerManager.getInstance().getPlayer().intersects(pipe.getBoundingBox())){
+                    isActive = true;
                 }
             }
-
 
             if (go.type == GameObjectType.GROUND) {
                 Ground ground = (Ground) go;
 
-                if (PlayerManager.getInstance().getPlayer().getBoundingBox().intersects(ground.getBoundingBox())) {
-                    gameOver = true;
+                if(PlayerManager.getInstance().getPlayer().intersects(ground.getBoundingBox())){
+                    isActive = true;
                 }
             }
         }
-        ps.run(delay);
-        gs.run();
+        pipeSpawner.run(delay);
+        groundSpawner.run();
     }
 
     @Override
@@ -64,24 +63,18 @@ public class GameScene extends Scene {
 
     @Override
     public void init() {
+        player = new Player(new Vector2(50, 100), GameObjectType.PLAYER);
+        PlayerManager.getInstance().setPlayer(player);
 
-        player = new Bird(new Vector2(50, 100), GameObjectType.PLAYER);
         gameObjects.add(new Background(new Vector2(0, 0), GameObjectType.BACKGROUND));
         gameObjects.add(player);
 
-        PlayerManager.getInstance().setPlayer(player);
-
-        gs.init();
+        groundSpawner.init();
     }
 
     public void reset() {
         player.setGameObjectPosition(new Vector2(50, 100));
-        player.setVerticalSpeed(0);
-        ps.getGameObjects().removeIf(gameObject -> gameObject.type == GameObjectType.PIPE);
-    }
-
-    @Override
-    public boolean isStarting() {
-        return true;
+        player.setVerticalVelocity(0);
+        pipeSpawner.getGameObjects().removeIf(gameObject -> gameObject.type == GameObjectType.PIPE);
     }
 }

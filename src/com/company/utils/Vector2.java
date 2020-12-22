@@ -1,8 +1,8 @@
 package com.company.utils;
 
 public class Vector2 {
-    int x = 0;
-    int y = 0;
+    int x;
+    int y;
 
     public Vector2(int x, int y) {
         this.x = x;

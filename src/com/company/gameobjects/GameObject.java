@@ -32,6 +32,5 @@ public abstract class GameObject {
     }
 
     abstract public void render(Graphics g);
-
     abstract public void update();
 }

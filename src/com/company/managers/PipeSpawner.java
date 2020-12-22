@@ -28,8 +28,8 @@ public class PipeSpawner {
             if (delay % (60 * 2) == 0) {
 
                 int pipeLocationX = Utils.getRandomIntInRange(300, 400);
-                int pipeUpsideDownLocationY = Utils.getRandomIntInRange(-300, -200);
-                int pipeLocationY = Utils.getRandomIntInRange(250, 400);
+                int pipeUpsideDownLocationY = Utils.getRandomIntInRange(-250, -150);
+                int pipeLocationY = Utils.getRandomIntInRange(250, 350);
 
                 Pipe pipe = new Pipe(new Vector2(pipeLocationX, pipeUpsideDownLocationY), GameObjectType.PIPE, true);
                 Pipe pipe2 = new Pipe(new Vector2(pipeLocationX, pipeLocationY), GameObjectType.PIPE, false);

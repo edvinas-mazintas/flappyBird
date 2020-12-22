@@ -1,10 +1,10 @@
 package com.company.managers;
 
-import com.company.gameobjects.Bird;
+import com.company.gameobjects.Player;
 
 public class PlayerManager {
     private static PlayerManager instance = null;
-    private Bird player = null;
+    private Player player = null;
 
     private PlayerManager() {
     }
@@ -17,11 +17,11 @@ public class PlayerManager {
         return instance;
     }
 
-    public Bird getPlayer() {
+    public Player getPlayer() {
         return player;
     }
 
-    public void setPlayer(Bird player) {
+    public void setPlayer(Player player) {
         this.player = player;
     }
 }

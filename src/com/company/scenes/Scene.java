@@ -9,5 +9,5 @@ public abstract class Scene {
 
     public abstract void init();
 
-    public abstract boolean isStarting();
+    public abstract boolean isActive();
 }
